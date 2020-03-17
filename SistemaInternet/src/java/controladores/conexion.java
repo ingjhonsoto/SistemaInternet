@@ -12,9 +12,9 @@ import java.sql.SQLException;
  * @author Jhon
  */
 public class conexion {
-    private String USERNAME = "Jhon";
-    private String PASSWORD = "jsoto24";
-    private String HOST = "192.168.6.100";
+    private String USERNAME = "root";
+    private String PASSWORD = "";
+    private String HOST = "localhost";
     private String PORT = "3306";
     private String DATABASE = "internet_db";
     private String CLASSNAME = "com.mysql.jdbc.Driver";

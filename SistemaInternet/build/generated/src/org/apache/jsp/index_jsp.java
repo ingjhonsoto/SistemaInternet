@@ -53,6 +53,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <link rel=\"stylesheet\" href=\"estilos.css\">\n");
       out.write("    <link rel=\"stylesheet\" href=\"fonts.css\">\n");
       out.write("    <link href=\"https://fonts.googleapis.com/css?family=Josefin+Sans|Montez|Pathway+Gothic+One\" rel=\"stylesheet\">\n");
+      out.write("    <script src=\"js/main.js\"></script>\n");
       out.write("  </head>\n");
       out.write("  <body>\n");
       out.write("    <div class=\"contenedor\">\n");
@@ -65,11 +66,11 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <article class=\"fondo\">\n");
       out.write("          <img src=\"img/men.jpg\" alt=\"User\">\n");
       out.write("          <h3>Inicio de Sesión</h3>\n");
-      out.write("          <form class=\"\" action=\"index.html\" method=\"post\">\n");
-      out.write("            <span class=\"icon-user\"></span><input class=\"inp\" type=\"text\" name=\"user\" value=\"\"><br>\n");
-      out.write("            <span class=\"icon-key\"></span><input class=\"inp\" type=\"password\" name=\"pass\" value=\"\"><br>\n");
+      out.write("          <form class=\"\" action=\"login\" method=\"post\" id=\"forminicio\">\n");
+      out.write("              <span class=\"icon-user\"></span><input class=\"inp\" type=\"text\" name=\"user\" value=\"\" id=\"txtuser\" placeholder=\"Ingrese Usuario\"><br>\n");
+      out.write("              <span class=\"icon-key\"></span><input class=\"inp\" type=\"password\" name=\"pass\" value=\"\" id=\"txtpass\" placeholder=\"Ingrese contraseña\"><br>\n");
       out.write("            <a href=\"\" class=\"he\">He olvidado mi contraseña</a>\n");
-      out.write("            <input class=\"boton\" type=\"submit\" name=\"inicio\" value=\"Iniciar Sesión\">\n");
+      out.write("            <input class=\"boton\" type=\"button\" name=\"inicio\" id=\"btninicio\" value=\"Iniciar Sesión\">\n");
       out.write("          </form>\n");
       out.write("        </article>\n");
       out.write("      </div>\n");
