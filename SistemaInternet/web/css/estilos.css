@@ -1,9 +1,10 @@
-*{
+* {
   margin: 0;
   padding: 0;
   font-family: Josefin Sans;
 }
-.contenedor{
+
+.contenedor {
   background-image: url(img/back.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
@@ -13,7 +14,8 @@
   width: 100%;
   height: 100%;
 }
-header{
+
+header {
   width: 100%;
   color: #fff;
   display: flex;
@@ -21,14 +23,16 @@ header{
   align-items: center;
   align-content: center;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0,.3)
+  background-color: rgba(0, 0, 0,.3);
 }
-header h1{
+
+header h1 {
   margin-left: 30px;
   font-family: montez;
   font-size: 30px;
 }
-header a{
+
+header a {
   margin-right: 30px;
   text-align: center;
   text-decoration: none;
@@ -36,10 +40,12 @@ header a{
   font-size: 25px;
   transition: all ease 300ms;
 }
-header a:hover{
+
+header a:hover {
   color: rgb(180, 210, 212);
 }
-.login{
+
+.login {
   margin-top: 130px;
   margin-bottom: 250px;
   display: flex;
@@ -48,43 +54,49 @@ header a:hover{
   width: 40%;
   height: 100%;
 }
-.fondo{
+
+.fondo {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  margin:0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
   border-radius: 5px;
 }
-.fondo img{
+
+.fondo img {
   margin-top: -75px;
   margin-bottom: 40px;
   width: 25%;
   border-radius: 50%;
   border: solid #fff 5px;
 }
-.fondo h3{
+
+.fondo h3 {
   color: #fff;
   text-align: center;
   font-size: 30px;
   margin-bottom: 40px;
 }
-.fondo form{
+
+.fondo form {
   width: 70%;
 }
-.fondo form span{
-  margin-right:0px;
+
+.fondo form span {
+  margin-right: 0px;
   background-color: rgba(255, 255, 255,.6);
   color: #000;
-  border:solid 7px rgba(255, 255, 255,.01);
+  border: solid 7px rgba(255, 255, 255,.01);
   border-bottom: solid 9.5px rgba(255, 255, 255,.01);
   border-top: solid 9px rgba(255, 255, 255,.01);
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-.inp{
+
+.inp {
   box-shadow: 0;
   border: 0;
   background-color: rgba(255, 255, 255, .1);
@@ -99,13 +111,15 @@ header a:hover{
   text-align: left;
   transition: all 250ms ease;
 }
-.fondo form .inp:focus{
-  outline:0px;
+
+.fondo form .inp:focus {
+  outline: 0px;
   background-color: rgba(255, 255, 255, .6);
   border: solid 2px rgba(255,255,255,.01);
   color: #000;
 }
-.boton{
+
+.boton {
   width: 100%;
   height: 30px;
   font-size: 22px;
@@ -117,32 +131,39 @@ header a:hover{
   margin-top: 50px;
   transition: all 200ms ease;
 }
-.boton:hover{
+
+.boton:hover {
   width: 120%;
   margin-left: -10%;
 }
-.boton:active{
+
+.boton:active {
   background-color: rgba(255, 255, 255,0.2);
   outline: 0;
   border: 0;
   border-radius: 5px;
 }
-.boton:focus{
+
+.boton:focus {
   background-color: rgba(255, 255, 255,0.2);
   outline: 0;
   border: 0;
   border-radius: 5px;
 }
-.he{
+
+.he {
   text-decoration: none;
   text-align: right;
   color: #fff;
   font-size: 18px;
   transition: all 300ms ease;
 }
-.he:hover{
+
+.he:hover {
   color: rgb(184, 203, 214);
 }
-.boton:hover{
+
+.boton:hover {
   border: 120%;
 }
+

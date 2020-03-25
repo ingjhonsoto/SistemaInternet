@@ -19,6 +19,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Bienvenido <%out.println(usuario);%></h1>
+        <h1>Usuario <%out.println(usuario);%></h1>
+        
     </body>
 </html>

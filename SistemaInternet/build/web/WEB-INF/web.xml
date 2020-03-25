@@ -4,9 +4,17 @@
         <servlet-name>registracliente</servlet-name>
         <servlet-class>Servlets.registracliente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editarcliente</servlet-name>
+        <servlet-class>Servlets.editarcliente</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>registracliente</servlet-name>
         <url-pattern>/registracliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editarcliente</servlet-name>
+        <url-pattern>/editarcliente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

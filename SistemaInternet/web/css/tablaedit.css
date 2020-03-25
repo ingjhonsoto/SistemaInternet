@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23/03/2020, 12:54:18 PM
+    Author     : jsoto
+*/
+.tbedit{
+    width: 40%;
+    margin: 0 auto;
+    border: 2px solid black;
+    
+
+}
+body{
+    background-color: #c6c8ca; 
+}
+h3{
+    alignment-adjust: central;
+}
+#editcabecera th{
+    align-items: center;
+    text-align: center;
+}
+.editcliente{
+    padding: 30px;
+}
+

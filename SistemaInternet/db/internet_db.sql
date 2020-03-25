@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
--- http://www.phpmyadmin.net
+-- version 5.0.1
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-03-2020 a las 12:52:39
--- Versión del servidor: 5.6.26
--- Versión de PHP: 5.6.12
+-- Tiempo de generación: 25-03-2020 a las 01:09:36
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -24,10 +26,26 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`Jhon`@`%` PROCEDURE `nsp_insertusuario`()
-begin
+CREATE DEFINER=`jsoto`@`%` PROCEDURE `nsp_editarcliente` (IN `_idcliente` INT, `_dni` CHAR(8), `_nombre` VARCHAR(20), `_a_paterno` VARCHAR(10), `_a_materno` VARCHAR(10), `_direccion` VARCHAR(50), `_celular` INT(11), `_idestado` CHAR(2))  BEGIN
+update clientes set dni=_dni,nombre=_nombre, a_paterno=_a_paterno, a_materno=_a_materno, direccion=_direccion, celular=_celular, idestado=_idestado where idcliente=_idcliente;
+END$$
+
+CREATE DEFINER=`jsoto`@`%` PROCEDURE `nsp_insertcliente` (IN `_dni` CHAR(8), `_nombre` VARCHAR(20), `_a_paterno` VARCHAR(10), `_a_materno` VARCHAR(10), `_direccion` VARCHAR(50), `_celular` INT(11), `_idestado` CHAR(2), `_idusuario` INT(11))  BEGIN
+	INSERT INTO clientes (dni,nombre,a_paterno,a_materno,direccion,celular,idestado,idusuario)
+    		VALUES (_dni,_nombre,_a_paterno,_a_materno,_direccion,_celular,_idestado,_idusuario);
+END$$
+
+CREATE DEFINER=`Jhon`@`%` PROCEDURE `nsp_insertusuario` ()  begin
 select * from usuarios;
 
+end$$
+
+CREATE DEFINER=`jsoto`@`%` PROCEDURE `nsp_listarclientes` ()  begin
+select c.idcliente,c.dni,c.nombre,c.a_paterno,c.a_materno,c.direccion,c.celular,e.descripcion from clientes c inner join estado e on c.idestado=e.idestado;
+end$$
+
+CREATE DEFINER=`jsoto`@`%` PROCEDURE `nsp_registracobro` (IN `_periodo` VARCHAR(7), `_idcliente` INT, `_idestado` CHAR(2), `_idestadoclienteperiodo` CHAR(2))  begin
+	update cobros set idestado=_idestado, idestadoclienteperiodo=_idestadoclienteperiodo where periodo=_periodo and idcliente=_idcliente;    
 end$$
 
 DELIMITER ;
@@ -38,7 +56,7 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `clientes`
 --
 
-CREATE TABLE IF NOT EXISTS `clientes` (
+CREATE TABLE `clientes` (
   `idcliente` int(11) NOT NULL,
   `dni` char(8) DEFAULT NULL,
   `nombre` varchar(20) NOT NULL,
@@ -48,14 +66,14 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `celular` int(11) DEFAULT NULL,
   `idestado` char(2) DEFAULT NULL,
   `idusuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
 INSERT INTO `clientes` (`idcliente`, `dni`, `nombre`, `a_paterno`, `a_materno`, `direccion`, `celular`, `idestado`, `idusuario`) VALUES
-(1, NULL, 'STEVEN', 'ALCAS', 'MURILLO', 'NOMARA', NULL, 'AC', 1),
+(1, 'NULL', 'STEVEN', 'ALCAS', 'MURILLO', 'NOMARA', 0, 'AC', 1),
 (2, NULL, 'RUBI', 'ELIAS', 'AVALOS', 'NOMARA', 973416545, 'AC', 1),
 (3, NULL, 'NATALIA', 'SANCHEZ', 'A', 'NOMARA', 957169763, 'AC', 1),
 (4, NULL, 'CELIA', 'CASTRO', 'PRADO', 'NOMARA', 966586844, 'AC', 1),
@@ -87,7 +105,9 @@ INSERT INTO `clientes` (`idcliente`, `dni`, `nombre`, `a_paterno`, `a_materno`, 
 (30, NULL, 'LUIS', 'ATOCHE', 'A', 'MACACARA', 978382339, 'AC', 1),
 (31, NULL, 'JULIANA', 'AGURTO', 'A', 'MACACARA', NULL, 'AC', 1),
 (32, NULL, 'LOURDES', 'SAMANE', 'A', 'MACACARA', 968782119, 'AC', 1),
-(33, NULL, 'RODOLFO', 'REYES', 'A', 'MACACARA', 981733785, 'AC', 1);
+(33, NULL, 'RODOLFO', 'REYES', 'A', 'MACACARA', 981733785, 'AC', 1),
+(34, '74803993', 'JHON ALEX', 'SOTO', 'NAVARRO', 'NOMARA', 950234204, 'AC', 1),
+(35, '74803993', 'ALEX', 'SOTO', 'NAVARRO', 'NOMARA', 0, 'IN', 1);
 
 -- --------------------------------------------------------
 
@@ -95,11 +115,12 @@ INSERT INTO `clientes` (`idcliente`, `dni`, `nombre`, `a_paterno`, `a_materno`, 
 -- Estructura de tabla para la tabla `cobros`
 --
 
-CREATE TABLE IF NOT EXISTS `cobros` (
+CREATE TABLE `cobros` (
   `periodo` char(7) DEFAULT NULL,
   `descripcion` varchar(40) DEFAULT NULL,
   `idcliente` int(11) DEFAULT NULL,
-  `idestado` char(2) DEFAULT NULL
+  `idestado` char(2) DEFAULT NULL,
+  `idestadoclienteperiodo` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -108,11 +129,12 @@ CREATE TABLE IF NOT EXISTS `cobros` (
 -- Estructura de tabla para la tabla `deudores`
 --
 
-CREATE TABLE IF NOT EXISTS `deudores` (
+CREATE TABLE `deudores` (
   `periodo` char(7) DEFAULT NULL,
   `descripcion` varchar(40) DEFAULT NULL,
   `idcliente` int(11) DEFAULT NULL,
-  `idestado` char(2) DEFAULT NULL
+  `idestado` char(2) DEFAULT NULL,
+  `fecha_regularizacion` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -121,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `deudores` (
 -- Estructura de tabla para la tabla `estado`
 --
 
-CREATE TABLE IF NOT EXISTS `estado` (
+CREATE TABLE `estado` (
   `idestado` char(2) NOT NULL,
   `descripcion` varchar(20) NOT NULL,
   `fechacreacion` datetime DEFAULT NULL
@@ -144,7 +166,7 @@ INSERT INTO `estado` (`idestado`, `descripcion`, `fechacreacion`) VALUES
 -- Estructura de tabla para la tabla `infoconexion`
 --
 
-CREATE TABLE IF NOT EXISTS `infoconexion` (
+CREATE TABLE `infoconexion` (
   `d_ipcliente` varchar(20) NOT NULL,
   `d_ipequipo` varchar(20) NOT NULL,
   `idcliente` int(11) DEFAULT NULL,
@@ -168,7 +190,7 @@ INSERT INTO `infoconexion` (`d_ipcliente`, `d_ipequipo`, `idcliente`, `idestado`
 -- Estructura de tabla para la tabla `registropago`
 --
 
-CREATE TABLE IF NOT EXISTS `registropago` (
+CREATE TABLE `registropago` (
   `idpago` int(11) NOT NULL,
   `periodo` char(7) NOT NULL,
   `descripcion` varchar(50) NOT NULL,
@@ -183,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `registropago` (
 -- Estructura de tabla para la tabla `tipo`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo` (
+CREATE TABLE `tipo` (
   `idtipo` char(2) NOT NULL,
   `descripcion` varchar(20) NOT NULL,
   `fechacreacion` datetime DEFAULT NULL
@@ -203,7 +225,7 @@ INSERT INTO `tipo` (`idtipo`, `descripcion`, `fechacreacion`) VALUES
 -- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
+CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL,
   `nombre` varchar(10) NOT NULL,
   `a_paterno` varchar(10) NOT NULL,
@@ -214,14 +236,15 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `fechacreacion` datetime DEFAULT NULL,
   `idestado` char(2) NOT NULL,
   `idtipo` char(2) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idusuario`, `nombre`, `a_paterno`, `a_materno`, `celular`, `user`, `contra`, `fechacreacion`, `idestado`, `idtipo`) VALUES
-(1, 'JHON ALEX', 'SOTO', 'NAVARRO', 950234204, 'JSOTO', 'admin', '2020-03-15 13:12:56', 'AC', 'AD');
+(1, 'JHON ALEX', 'SOTO', 'NAVARRO', 950234204, 'JSOTO', 'admin', '2020-03-15 13:12:56', 'AC', 'AD'),
+(2, 'CRISTHIAN', 'SOTO', 'NAVARRO', 976452348, 'CSOTO', 'soto99', '2020-03-19 08:12:01', 'AC', 'AD');
 
 -- --------------------------------------------------------
 
@@ -229,7 +252,7 @@ INSERT INTO `usuario` (`idusuario`, `nombre`, `a_paterno`, `a_materno`, `celular
 -- Estructura de tabla para la tabla `wificasa`
 --
 
-CREATE TABLE IF NOT EXISTS `wificasa` (
+CREATE TABLE `wificasa` (
   `modeloequipo` varchar(20) DEFAULT NULL,
   `dispositivosconectados` int(11) DEFAULT NULL,
   `ipacceso` varchar(20) DEFAULT NULL,
@@ -281,12 +304,15 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
